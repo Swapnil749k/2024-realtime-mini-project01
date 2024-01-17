@@ -4,7 +4,15 @@ public class SearchCriteria {
 
 	private String courseName;
 	private String  enqStatus;
-	private String mode;
+	private String classMode;
+	public String getClassMode()
+
+	{
+		return classMode;
+	}
+	public void setClassMode(String classMode) {
+		this.classMode = classMode;
+	}
 	public String getCourseName() {
 		return courseName;
 	}
@@ -16,12 +24,6 @@ public class SearchCriteria {
 	}
 	public void setEnqStatus(String enqStatus) {
 		this.enqStatus = enqStatus;
-	}
-	public String getMode() {
-		return mode;
-	}
-	public void setMode(String mode) {
-		this.mode = mode;
 	}
 	
 	

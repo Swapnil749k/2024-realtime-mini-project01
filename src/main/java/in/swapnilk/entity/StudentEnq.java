@@ -2,6 +2,8 @@ package in.swapnilk.entity;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +20,7 @@ public class StudentEnq {
 	private String classMode;
 	private String courseName;
 	private String enqStatus;
+	@CreationTimestamp
 	private LocalDate createdDate;
 	private Integer cid;
 	public Integer getEnqID() {
@@ -68,9 +71,4 @@ public class StudentEnq {
 	public void setCid(Integer cid) {
 		this.cid = cid;
 	}
-	
-	
-	
-	
-	
 }

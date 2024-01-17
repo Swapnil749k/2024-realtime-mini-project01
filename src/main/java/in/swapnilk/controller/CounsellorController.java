@@ -7,13 +7,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import in.swapnilk.binding.DashboardResponse;
 import in.swapnilk.entity.Counsellor;
 import in.swapnilk.service.CounsellorService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CounsellorController {
 	@Autowired
 	private CounsellorService counsellorSvc;
+	
+	
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest req,Model model) {
+		HttpSession session=req.getSession(false);
+		session.invalidate();
+		return "redirect:/";
+		
+	}
 	
 	@GetMapping("/")
 	public String index(Model model) {
@@ -22,20 +34,30 @@ public class CounsellorController {
 		
 	}
 	@PostMapping("/login")
-	public String handleLogin(Counsellor c, Model model) {
+	public String handleLogin(Counsellor c,HttpServletRequest req, Model model) {
 		
 		Counsellor obj =counsellorSvc.loginCheck(c.getEmail(),c.getPwd());
 		
 		if (obj == null) {
 			model.addAttribute("errMsg","Invalid Credentials");
 			return "loginview";
-		}
+		} 
+		HttpSession session =req.getSession(true);
+		session.setAttribute("CID", obj.getCid());
+				
 			return "redirect:dashboard";
 	}
 	
 	@GetMapping("/dashboard")
-	public String buildDashboard(Model model) {
-		//
+	public String buildDashboard(HttpServletRequest req, Model model) {
+		
+		HttpSession session = req.getSession(false);
+		Object obj	=session.getAttribute("CID");
+		Integer cid =(Integer)obj;
+		
+	 DashboardResponse dashboardInfo= counsellorSvc.getDashboardInfo(cid);
+	 
+	 model.addAttribute("dashboard", dashboardInfo);
 		return "dashboardView";
 	}
 	
@@ -65,9 +87,9 @@ public class CounsellorController {
 	public String recoverPwd(@RequestParam String email,Model model) {
 		boolean status =counsellorSvc.recoverPwd(email);
 		if (status) {
-			model.addAttribute("msg","Pwd sent to mail succesfully");
+			model.addAttribute("smsg","Pwd sent to mail succesfully");
 		}else {
-			model.addAttribute("errormsg", "Invalid Email");
+			model.addAttribute("errmsg", "Invalid Email");
 			
 		}
 		return "forgotpwdView";

@@ -9,9 +9,12 @@
   <body>
 	  <div class="container">
 	      <h1>Login Here</h1>  
-	      <font color ='red'>
-	      <p th:text="${errMsg}"></p>
+	      	
+	      	<font color ='red'>
+	      			<p th:text="${errMsg}"></p>
 	      </font>
+	      
+	      
 	      <form th:action="@{/login}"th:object="${counsellor}" method="post">
 			  <table>
 				  <tr>

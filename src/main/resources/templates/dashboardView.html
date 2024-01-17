@@ -8,8 +8,25 @@
   </head>
   <body>
 	  <div class="container">
-    <h1>Welcome to Dashboard</h1>
-    
+    <h1>Welcome to Your Dashboard</h1>
+    <table>
+		<tr>
+			<td>Total Enquires :</td>
+			<td th:text="${dashboard.totalEnq}"></td>
+		</tr>
+		 <tr>
+			<td>Enrolled Enquires :</td>
+			<td th:text="${dashboard.enrolledEnq}"></td>
+				</tr>
+		<tr>
+			<td>Lost Enquires :</td>
+			<td th:text="${dashboard.lostEnq}"></td>
+				</tr>
+	</table>
+    <br/>
+    <a href="enquiry"> Add New Enquiry</a>
+     <a href="enquiries"> View Enquiry</a>
+     <br/>
     <a href="/" class="btn btn-danger">Logout</a>
     
     </div>
